@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addNumber } from '../../redux/numberSlice';
+import { addContact } from '../../redux/operations';
 
 export function ContactForm() {
   const dispatch = useDispatch();
-  const contactCurrent = useSelector(state => state.numbers);
+  const contactCurrent = useSelector(state => state.numbers.items);
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [done, setDone] = useState(false);
@@ -28,10 +28,9 @@ export function ContactForm() {
     });
     if (repietedContact.length > 0) {
       return setDone(true);
-      
     }
-
-    dispatch(addNumber(name, number));
+    const info = { name, phone: number };
+    dispatch(addContact(info));
     reset();
   };
 
